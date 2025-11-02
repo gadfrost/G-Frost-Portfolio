@@ -327,30 +327,67 @@ footer {
 }
 
 
-/* ==================================== */
-/* 8. Media Queries (Pour l'affichage sur mobile) */
-/* ==================================== */
+/* ==================================================== */
+/* 8. MEDIA QUERIES (pour l'affichage sur mobile) */
+/* ==================================================== */
 
 @media (max-width: 768px) {
+    /* Réduction du padding général pour plus d'espace sur mobile */
     .section-padding {
         padding: var(--spacing-medium) 5%;
     }
     
+    /* En-tête : passage en mode colonne */
     nav {
         flex-direction: column;
         text-align: center;
     }
     
+    nav h1 {
+        margin-bottom: 10px;
+    }
+
     nav ul {
-        margin-top: 10px;
+        margin-top: 5px;
+        flex-wrap: wrap; 
         justify-content: center;
     }
 
     nav ul li {
-        margin: 0 10px;
+        margin: 5px 10px; /* Réduit l'espacement entre les liens */
     }
 
+    /* Section d'Introduction */
     #hero h2 {
         font-size: 2.2em;
+    }
+
+    /* Photo de profil réduite */
+    .profile-picture {
+        width: 150px;
+        height: 150px;
+    }
+
+    /* Grille des Compétences : une seule colonne */
+    .skills-grid {
+        grid-template-columns: 1fr; /* Force 1 colonne */
+        gap: var(--spacing-medium);
+    }
+    
+    /* Grille du Portfolio : une seule colonne */
+    .portfolio-grid {
+        grid-template-columns: 1fr; /* Force 1 colonne */
+        gap: var(--spacing-medium);
+    }
+    
+    /* Boutons et liens de contact */
+    .button {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+    
+    .contact-links a {
+        display: block; /* Force les liens à s'empiler */
+        margin: 10px auto;
     }
 }
