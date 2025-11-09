@@ -328,7 +328,7 @@ footer {
 
 
 /* ==================================================== */
-/* 8. MEDIA QUERIES (pour l'affichage sur mobile) */
+/* 8. MEDIA QUERIES (pour la réactivité mobile) */
 /* ==================================================== */
 
 @media (max-width: 768px) {
@@ -390,4 +390,28 @@ footer {
         display: block; /* Force les liens à s'empiler */
         margin: 10px auto;
     }
+}
+
+
+/* ==================================== */
+/* 9. Styles pour le Robot 3D Interactif */
+/* ==================================== */
+
+.model-viewer-container model-viewer {
+    width: 100%;
+    /* Hauteur pour que le modèle soit bien visible dans la carte */
+    height: 350px; 
+    display: block;
+    margin-bottom: 15px;
+    /* Personnalisation du rendu */
+    --exposure: 1.5; 
+    --shadow-intensity: 1;
+    /* Pour que le haut du modèle soit arrondi */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* On masque l'ancienne image pour le conteneur du modèle 3D */
+.model-viewer-container img {
+    display: none;
 }

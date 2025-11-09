@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon Portfolio - GAD</title>
     <link rel="stylesheet" href="site.css">
-    </head>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+</head>
 <body>
     
     <header>
@@ -84,11 +85,19 @@
             
             <div class="portfolio-grid">
 
-                <article class="portfolio-item">
-                    <img src="images/publication/mini robo.jpg" alt="Un robot 3D futuriste">
-                    <h4>Un robot 3D futuriste</h4>
-                    <p class="project-tags">#Bender</p>
-                    <a href="URL_du_projet" target="_blank" rel="noopener noreferrer" class="button secondary-button">Voir le Projet</a>
+                <article class="portfolio-item model-viewer-container">
+                    <model-viewer 
+                        src="models/petit robo.glb" 
+                        alt="Mon Robot 3D Interactif" 
+                        auto-rotate 
+                        camera-controls 
+                        shadow-intensity="1"
+                        environment-image="neutral"
+                    >
+                    </model-viewer>
+                    <h4>Robot 3D Interactif</h4>
+                    <p class="project-tags">#Blender #Front-end #3D</p>
+                    <a href="#contact" class="button secondary-button">Contactez-moi pour en savoir plus</a>
                 </article>
 
                 <article class="portfolio-item">
