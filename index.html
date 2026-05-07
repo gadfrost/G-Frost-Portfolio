@@ -16,16 +16,21 @@
         :root {
             --primary: #6366f1;
             --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
             --accent: #10b981;
+            --accent-dark: #059669;
             --bg-dark: #0f172a;
+            --bg-darker: #0a0f1f;
             --card-bg: rgba(30, 41, 59, 0.7);
+            --card-bg-hover: rgba(30, 41, 59, 0.9);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-border-hover: rgba(99, 102, 241, 0.3);
             --radius: 24px;
+            --radius-sm: 12px;
         }
 
-        
         * {
             box-sizing: border-box;
             margin: 0;
@@ -35,10 +40,11 @@
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-dark);
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
             color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.6;
+            min-height: 100vh;
         }
 
         /* Arrière-plan 3D Fixe */
@@ -50,7 +56,7 @@
             height: 100vh;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.6;
+            opacity: 0.5;
         }
 
         /* Navigation */
@@ -60,16 +66,22 @@
             width: 100%;
             padding: 1.5rem 5%;
             z-index: 1000;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 1rem 5%;
         }
 
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -80,11 +92,18 @@
             background: linear-gradient(to right, #818cf8, #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         nav ul {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             list-style: none;
         }
 
@@ -92,8 +111,24 @@
             color: var(--text-main);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
-            transition: color 0.3s;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         nav a:hover {
@@ -104,7 +139,7 @@
         section {
             min-height: 100vh;
             padding: 8rem 5% 4rem;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
@@ -118,6 +153,12 @@
             border-radius: var(--radius);
             padding: 3rem;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease;
+        }
+
+        .glass-card:hover {
+            border-color: var(--glass-border-hover);
+            box-shadow: 0 25px 60px -8px rgba(99, 102, 241, 0.2);
         }
 
         /* Hero Section */
@@ -127,8 +168,8 @@
 
         .profile-container {
             position: relative;
-            width: 180px;
-            height: 180px;
+            width: 200px;
+            height: 200px;
             margin: 0 auto 2rem;
         }
 
@@ -138,7 +179,13 @@
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid var(--primary);
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 0 40px rgba(99, 102, 241, 0.5);
+            transition: all 0.4s ease;
+        }
+
+        .profile-picture:hover {
+            box-shadow: 0 0 60px rgba(99, 102, 241, 0.8);
+            transform: scale(1.05);
         }
 
         h2 {
@@ -146,12 +193,17 @@
             font-size: 3.5rem;
             margin-bottom: 1rem;
             line-height: 1.1;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero-tagline {
             font-size: 1.25rem;
             color: var(--text-muted);
             margin-bottom: 2.5rem;
+            font-weight: 300;
         }
 
         /* Portfolio Grid */
@@ -163,12 +215,34 @@
         .section-header h3 {
             font-size: 2.5rem;
             font-family: 'Outfit', sans-serif;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            font-size: 1.05rem;
         }
 
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .project-card {
@@ -176,51 +250,79 @@
             border-radius: var(--radius);
             overflow: hidden;
             border: 1px solid var(--glass-border);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.4s;
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-12px);
             border-color: var(--primary);
+            background: var(--card-bg-hover);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
         }
 
         .project-img {
             width: 100%;
-            height: 220px;
+            height: 240px;
             object-fit: cover;
             border-bottom: 1px solid var(--glass-border);
+            transition: transform 0.4s ease;
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.05);
         }
 
         .project-content {
-            padding: 1.5rem;
+            padding: 2rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
 
         .project-content h4 {
-            font-size: 1.25rem;
+            font-size: 1.35rem;
             margin-bottom: 0.75rem;
-            color: var(--primary);
+            color: var(--primary-light);
+            font-weight: 700;
         }
 
         .project-content p {
             color: var(--text-muted);
             font-size: 0.95rem;
             margin-bottom: 1.5rem;
+            flex-grow: 1;
         }
 
         .project-links {
             display: flex;
             gap: 1rem;
             margin-top: auto;
+            flex-wrap: wrap;
         }
 
         .btn {
             padding: 0.75rem 1.5rem;
-            border-radius: 12px;
+            border-radius: var(--radius-sm);
             text-decoration: none;
             font-weight: 700;
             font-size: 0.9rem;
@@ -228,46 +330,80 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            cursor: pointer;
+            border: none;
         }
 
         .btn-primary {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
         }
 
         .btn-outline {
-            border: 1px solid var(--glass-border);
+            border: 1.5px solid var(--glass-border);
             color: var(--text-main);
+            background: transparent;
         }
 
         .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-sm {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.85rem;
         }
 
         /* Skills */
         .skills-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
         }
 
         .skill-item {
             background: rgba(255, 255, 255, 0.05);
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             border-radius: 20px;
             text-align: center;
             border: 1px solid var(--glass-border);
+            transition: all 0.4s ease;
+        }
+
+        .skill-item:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-8px);
         }
 
         .skill-item i {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--primary);
             margin-bottom: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .skill-item:hover i {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .skill-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .skill-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
         /* Contact */
@@ -275,13 +411,48 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
+            align-items: center;
         }
 
-        @media (max-width: 768px) {
-            h2 { font-size: 2.5rem; }
-            .contact-grid { grid-template-columns: 1fr; }
-            nav ul { display: none; }
-            .portfolio-grid { grid-template-columns: 1fr; }
+        .contact-info a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-info a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1.8rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--glass-border);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px) rotate(10deg);
         }
 
         footer {
@@ -289,6 +460,39 @@
             padding: 4rem 0;
             color: var(--text-muted);
             border-top: 1px solid var(--glass-border);
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h2 { 
+                font-size: 2.2rem; 
+            }
+
+            .section-header h3 {
+                font-size: 1.8rem;
+            }
+
+            .contact-grid { 
+                grid-template-columns: 1fr; 
+            }
+
+            nav ul { 
+                display: none; 
+            }
+
+            .portfolio-grid { 
+                grid-template-columns: 1fr; 
+            }
+
+            section {
+                padding: 6rem 5% 3rem;
+            }
+
+            .profile-container {
+                width: 150px;
+                height: 150px;
+            }
         }
     </style>
 </head>
@@ -321,7 +525,7 @@
                 </div>
                 <h2>Développeur Full-Stack <br>& Artiste 3D</h2>
                 <p class="hero-tagline">Je fusionne le code et l'art pour créer des expériences numériques inoubliables.</p>
-                <div style="display: flex; justify-content: center; gap: 1rem;">
+                <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
                     <a href="#portfolio" class="btn btn-primary">Voir mes travaux</a>
                     <a href="#contact" class="btn btn-outline">Me contacter</a>
                 </div>
@@ -332,48 +536,11 @@
         <section id="portfolio">
             <div class="section-header">
                 <h3>Mes Réalisations</h3>
-                <p style="color: var(--text-muted);">Une sélection de mes projets les plus récents.</p>
+                <p>Une sélection complète de mes projets les plus récents et innovants.</p>
             </div>
             
             <div class="portfolio-grid" id="github-projects">
-                <!-- Statut Pro -->
-                <article class="project-card">
-                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=800" alt="Statut Pro" class="project-img">
-                    <div class="project-content">
-                        <h4>Statut Pro RDC 🇨🇩</h4>
-                        <p>Application PWA de création de statuts WhatsApp haute définition avec personnalisation avancée.</p>
-                        <div class="project-links">
-                            <a href="https://gadfrost.github.io/Statut-Pro/" target="_blank" class="btn btn-primary btn-sm"><i class="fas fa-external-link-alt"></i> Live</a>
-                            <a href="https://github.com/gadfrost/Statut-Pro" target="_blank" class="btn btn-outline btn-sm"><i class="fab fa-github"></i> Code</a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Home Workout -->
-                <article class="project-card">
-                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800" alt="Home Workout" class="project-img">
-                    <div class="project-content">
-                        <h4>Home Workout App</h4>
-                        <p>Votre coach personnel à domicile. Suivi d'exercices et programmes d'entraînement personnalisés.</p>
-                        <div class="project-links">
-                            <a href="https://gadfrost.github.io/home-workout-app/" target="_blank" class="btn btn-primary btn-sm"><i class="fas fa-external-link-alt"></i> Live</a>
-                            <a href="https://github.com/gadfrost/home-workout-app" target="_blank" class="btn btn-outline btn-sm"><i class="fab fa-github"></i> Code</a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Agenda Chrono -->
-                <article class="project-card">
-                    <img src="https://images.unsplash.com/photo-1506784365847-bbad939e9335?q=80&w=800" alt="Agenda Chrono" class="project-img">
-                    <div class="project-content">
-                        <h4>Agenda Chrono</h4>
-                        <p>Gestionnaire de temps et de tâches ultra-rapide pour optimiser votre productivité quotidienne.</p>
-                        <div class="project-links">
-                            <a href="https://gadfrost.github.io/Agenda-chrono/" target="_blank" class="btn btn-primary btn-sm"><i class="fas fa-external-link-alt"></i> Live</a>
-                            <a href="https://github.com/gadfrost/Agenda-chrono" target="_blank" class="btn btn-outline btn-sm"><i class="fab fa-github"></i> Code</a>
-                        </div>
-                    </div>
-                </article>
+                <!-- Les projets seront générés dynamiquement -->
             </div>
         </section>
 
@@ -381,6 +548,7 @@
         <section id="skills">
             <div class="section-header">
                 <h3>Expertise Technique</h3>
+                <p>Les technologies et outils que je maîtrise.</p>
             </div>
             <div class="skills-container">
                 <div class="skill-item">
@@ -403,6 +571,16 @@
                     <h4>PWA</h4>
                     <p>Offline First, Manifest</p>
                 </div>
+                <div class="skill-item">
+                    <i class="fas fa-database"></i>
+                    <h4>Bases de Données</h4>
+                    <p>MySQL, MongoDB, Firebase</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-rocket"></i>
+                    <h4>DevOps</h4>
+                    <p>Git, GitHub, Deployment</p>
+                </div>
             </div>
         </section>
 
@@ -410,16 +588,14 @@
         <section id="contact">
             <div class="glass-card">
                 <div class="contact-grid">
-                    <div>
+                    <div class="contact-info">
                         <h3>Parlons de votre projet</h3>
-                        <p style="color: var(--text-muted); margin-top: 1rem;">Je suis toujours ouvert à de nouvelles opportunités et collaborations créatives.</p>
-                        <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
-                            <a href="mailto:goldengad72@gmail.com" style="color: var(--primary); text-decoration: none; font-weight: 700;"><i class="fas fa-envelope"></i> goldengad72@gmail.com</a>
-                            <div style="display: flex; gap: 1.5rem; font-size: 1.5rem; margin-top: 1rem;">
-                                <a href="http://tiktok.com/@golden_muzane" target="_blank" style="color: var(--text-main);"><i class="fab fa-tiktok"></i></a>
-                                <a href="https://instagram.com/gadkakunda" target="_blank" style="color: var(--text-main);"><i class="fab fa-instagram"></i></a>
-                                <a href="https://github.com/gadfrost" target="_blank" style="color: var(--text-main);"><i class="fab fa-github"></i></a>
-                            </div>
+                        <p style="color: var(--text-muted); margin-top: 1rem; margin-bottom: 2rem;">Je suis toujours ouvert à de nouvelles opportunités et collaborations créatives. N'hésitez pas à me contacter !</p>
+                        <a href="mailto:goldengad72@gmail.com"><i class="fas fa-envelope"></i> goldengad72@gmail.com</a>
+                        <div class="social-links">
+                            <a href="http://tiktok.com/@golden_muzane" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                            <a href="https://instagram.com/gadkakunda" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="https://github.com/gadfrost" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
                         </div>
                     </div>
                     <div style="display: flex; align-items: center; justify-content: center;">
@@ -451,36 +627,73 @@
             const scroll = window.scrollY;
             const model = document.getElementById('robot-bg');
             model.setAttribute('camera-orbit', `${scroll * 0.1}deg 75deg 105%`);
+
+            // Ajouter la classe scrolled au header
+            const header = document.querySelector('header');
+            if (scroll > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         });
 
-        // Chargement dynamique des projets (Simulation pour démo, peut être lié à l'API GitHub)
+        // Données des projets
         const projects = [
             {
                 title: "Statut Pro RDC 🇨🇩",
-                desc: "Application PWA de création de statuts WhatsApp haute définition avec personnalisation avancée.",
+                desc: "Application PWA de création de statuts WhatsApp haute définition avec personnalisation avancée. Parfait pour partager vos moments en style.",
                 img: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=800",
                 live: "https://gadfrost.github.io/Statut-Pro/",
                 repo: "https://github.com/gadfrost/Statut-Pro"
             },
             {
                 title: "Home Workout App",
-                desc: "Votre coach personnel à domicile. Suivi d'exercices et programmes d'entraînement personnalisés.",
+                desc: "Votre coach personnel à domicile. Suivi d'exercices et programmes d'entraînement personnalisés pour atteindre vos objectifs fitness.",
                 img: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800",
                 live: "https://gadfrost.github.io/home-workout-app/",
                 repo: "https://github.com/gadfrost/home-workout-app"
             },
             {
                 title: "Agenda Chrono",
-                desc: "Gestionnaire de temps et de tâches ultra-rapide pour optimiser votre productivité quotidienne.",
+                desc: "Gestionnaire de temps et de tâches ultra-rapide pour optimiser votre productivité quotidienne. Simplicité et efficacité garanties.",
                 img: "https://images.unsplash.com/photo-1506784365847-bbad939e9335?q=80&w=800",
                 live: "https://gadfrost.github.io/Agenda-chrono/",
                 repo: "https://github.com/gadfrost/Agenda-chrono"
+            },
+            {
+                title: "ZenDecision",
+                desc: "Outil de prise de décision basé sur la méditation et la pleine conscience. Trouvez la clarté pour vos choix importants.",
+                img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=800",
+                live: "https://gadfrost.github.io/ZenDecision/",
+                repo: "https://github.com/gadfrost/ZenDecision"
+            },
+            {
+                title: "Guide Touristique",
+                desc: "Application interactive pour découvrir les meilleures attractions et destinations. Explorez le monde avec confiance.",
+                img: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800",
+                live: "https://gadfrost.github.io/Guide-touristique/",
+                repo: "https://github.com/gadfrost/Guide-touristique"
+            },
+            {
+                title: "Saint Valentin Gracia",
+                desc: "Expérience immersive spéciale pour célébrer l'amour. Un projet créatif et interactif rempli d'émotions.",
+                img: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?q=80&w=800",
+                live: "https://gadfrost.github.io/saint-valentin-gracia/",
+                repo: "https://github.com/gadfrost/saint-valentin-gracia"
+            },
+            {
+                title: "G-Frost Portfolio",
+                desc: "Mon portfolio personnel mettant en avant mes compétences en développement web et modélisation 3D. Vous êtes ici !",
+                img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800",
+                live: "https://g-frost-portfolio.vercel.app",
+                repo: "https://github.com/gadfrost/G-Frost-Portfolio"
             }
         ];
 
+        // Générer les cartes de projets
         const grid = document.getElementById('github-projects');
-        grid.innerHTML = projects.map(p => `
-            <article class="project-card">
+        grid.innerHTML = projects.map((p, index) => `
+            <article class="project-card" style="animation-delay: ${index * 0.1}s;">
                 <img src="${p.img}" alt="${p.title}" class="project-img">
                 <div class="project-content">
                     <h4>${p.title}</h4>
@@ -494,7 +707,7 @@
         `).join('');
 
         // Animation des cartes projets au scroll après injection
-        gsap.utils.toArray(".project-card").forEach(card => {
+        gsap.utils.toArray(".project-card").forEach((card, index) => {
             gsap.from(card, {
                 scrollTrigger: {
                     trigger: card,
@@ -503,7 +716,23 @@
                 duration: 0.8,
                 y: 50,
                 opacity: 0,
-                ease: "power2.out"
+                ease: "power2.out",
+                delay: index * 0.05
+            });
+        });
+
+        // Animation des skill items
+        gsap.utils.toArray(".skill-item").forEach((item, index) => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 90%",
+                },
+                duration: 0.6,
+                y: 40,
+                opacity: 0,
+                ease: "power2.out",
+                delay: index * 0.08
             });
         });
     </script>
